@@ -20,3 +20,6 @@ end
 all_classes_locator = "div#class-index div.entries p a"
 all_methods_locator = "div#method-list-section ul.link-list li"
 Scraper.display_content(Scraper.get_elemrnts(all_methods_locator, "Array.html")) 
+
+
+
