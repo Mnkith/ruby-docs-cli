@@ -19,7 +19,7 @@ module Scraper
   #   if
 
   def display_content(elements_array)
-    elements_array.each {|el| puts el.text}
+    elements_array.each_with_index {|el, i| puts "#{i+1}- #{el.text}"}
   end
 end
 # css(".class")[2].children[1].text

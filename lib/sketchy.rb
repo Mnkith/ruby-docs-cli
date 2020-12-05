@@ -11,7 +11,7 @@ def self.get_elemrnts(search_string, suffix = "")
 end
 
 def self.display_content(elements_array)
-  elements_array.each {|el| puts el.text}
+  elements_array.each_with_index {|el, i| puts "#{i}- #{iel.text}"}
 end
 end
 # css(".class")[2].children[1].text
