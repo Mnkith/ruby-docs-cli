@@ -17,6 +17,6 @@ end
 # css(".class")[2].children[1].text
 # puts doc.css("#method-index")[1]
 # puts doc.css(".class a").text
-all_classes_locator = "div#class-index div.entries p a"
-all_methods_locator = "div#method-list-section ul.link-list li"
-Scraper.display_content(Scraper.get_elemrnts(all_methods_locator, "Array.html")) 
+# all_classes_locator = "div#class-index div.entries p a"
+# all_methods_locator = "div#method-list-section ul.link-list li"
+# Scraper.display_content(Scraper.get_elemrnts(all_methods_locator, "Array.html")) 
