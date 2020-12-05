@@ -15,6 +15,17 @@ module Scraper
     @@main_uri
   end
 
+  def description(t)
+    if t.class == Klass
+      get_elements('div#documentation div#description.description', t.name).text
+    else
+      call =  d.css('div#count-method.method-detail span.method-callseq').text
+      details = d.css('div#count-method.method-detail div p').text
+      code = d.css('div#count-method.method-detail div pre').text
+      "#{call}#{details}#{code}"
+    end
+  end
+
   # def get_description(type)
   #   if
 
