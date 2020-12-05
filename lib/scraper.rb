@@ -4,18 +4,19 @@ module Scraper
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
   # main_site = open(main_uri)                    # not a constant because it's content will change dynamically
 
-  def get_elemrnts(element_locator, uri_suffix = '')
+  def get_elements(element_locator, uri_suffix = '')
     sub_page = open(normalize_uri(uri_suffix))
     doc = Nokogiri::HTML(sub_page)
     doc.css(element_locator)
   end
   
   def normalize_uri(suffix = '')
-    return @@main_uri + suffix.gsub(/::/, '/') + '.html' if suffix == ''
+    return @@main_uri + suffix.gsub(/::/, '/') + '.html' if suffix != ''
     @@main_uri
   end
 
-  # def get_elemrnt()
+  # def get_description(type)
+  #   if
 
   def display_content(elements_array)
     elements_array.each {|el| puts el.text}
