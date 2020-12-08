@@ -10,7 +10,16 @@ module Scraper
       doc = Nokogiri::HTML(sub_page)
       doc.css(element_locator)
     end
-    
+    def text_array(elements_array)
+      elements_array.map{|element| element.text}
+    end
+
+    def suggest(user_input)
+      s = ".*#{user_input.split('').join('.*')}.*"
+      pattern = Regexp.new(s)
+      self.all.select{|el| el.text.downcase =~ pattern}
+    end
+
     def normalize_uri(suffix = '')
       return @@main_uri + suffix.gsub(/::/, '/') + '.html' if suffix != ''
       @@main_uri
@@ -29,6 +38,11 @@ module Scraper
     def display_content(elements_array)
       elements_array.each_with_index {|el, i| puts "#{i+1}- #{el.text}"}
     end
+    def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
+      self.all.each{|el| return el.text if el.text.downcase == user_input.downcase}
+      nil
+    end
+
   end
 
   module InstanceMethods
@@ -38,10 +52,6 @@ module Scraper
       searchable.include?(user_input.downcase)
     end
 
-    def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
-      searchable = self.all.map{|el| return el.text if el.text.downcase == user_input.downcase}
-      nil
-    end
   end
 
   # def get_description(type)

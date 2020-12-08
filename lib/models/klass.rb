@@ -9,13 +9,12 @@ class Klass
   # display_content(@@all_classes)
   attr_reader :class_methods, :name, :description
   def initialize(class_name)
-      cn = validate(class_name)
-      if cn 
+      if cn = self.class.validate(class_name)
       @name = cn
       @class_methods = self.class.get_elements(@@all_methods_locator, @name)
       @description = self.class.description(self)
     else
-      puts "no class"
+      puts "no #{class_name} class found"
     end
   end
 
@@ -26,14 +25,15 @@ class Klass
     class_methods.size
   end
 
-  def all
+  def self.all
     @@all
   end
 end
-k = Klass.new("StRng")
+k = Klass.new("aRray")
+puts Klass.suggest('fd')
 # puts k.description
-# puts k.class_methods
+puts Klass.text_array(k.class_methods)
 # puts k.all_classes
-# Klass.display_content(k.all)
+# Klass.display_content(k.class_methods)
 # puts k.methods_count
 # puts Klass.methods
