@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'pry'
 module Scraper 
   module ClassMethods
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
@@ -31,17 +32,19 @@ module Scraper
       if t.class == Klass
         get_elements('div#documentation div#description.description', t.sub_page)
       else
-        call =  get_elements('div#count-method.method-detail span.method-callseq', t.name)
-        details = get_elements('div#count-method.method-detail div p', t.name)
-        code = get_elements('div#count-method.method-detail div pre', t.name)
-        "#{call}#{details}#{code}"
+        n = "#{t.normalized_name}method"
+        call =  get_elements("div##{n}.method-detail span.method-callseq", t.klass_sub_page)
+        details = get_elements("div##{n}.method-detail div p", t.klass_sub_page)
+        code = get_elements("div##{n}.method-detail div pre", t.klass_sub_page)
+        # binding.pry
+        call.concat(details, code)
       end
     end
-    def display_content(text_array)
+    def display_all(text_array)
       text_array.each_with_index {|el, i| puts "#{i+1}- #{el}"}
     end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
-      self.all.each{|el| return el if el.downcase == user_input.downcase}
+      self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
       nil
     end
     
