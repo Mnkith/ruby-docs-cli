@@ -7,17 +7,16 @@ module Scraper
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
   # main_site = open(main_uri)                    # not a constant because it's content will change dynamically
     
-    def get_elements(element_locator, sub_page)
-      # sub_page = open(normalize_uri(uri_suffix))
-      doc = Nokogiri::HTML(open(sub_page))
+    def get_elements(element_locator, page)
+      doc = Nokogiri::HTML(open(page))
       elements = doc.css(element_locator)
       elements.map{|element| element.text}
-      # binding.pry
-      # txt_ary = self.text_array(elements)
     end
+
     def main_uri
       @@main_uri
     end
+
     def suggest(user_input)
       s = ".*#{user_input.split('').join('.*')}.*"
       pattern = Regexp.new(s)
@@ -37,7 +36,6 @@ module Scraper
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
       nil
     end
-    
   end
   
   module InstanceMethods
@@ -45,29 +43,15 @@ module Scraper
       if self.class == Klass
         self.class.get_elements('div#documentation div#description.description', self.sub_page)
       else
-        n = "#{self.normalized_name}method"
-        call =  self.class.get_elements("div##{n}.method-detail span.method-callseq", self.klass_sub_page)
-        details = self.class.get_elements("div##{n}.method-detail div p", self.klass_sub_page)
-        code = self.class.get_elements("div##{n}.method-detail div pre", self.klass_sub_page)
+        id = self.normalized_name
+        call =  self.class.get_elements("div##{id}.method-detail span.method-callseq", self.class_sub_page)
+        details = self.class.get_elements("div##{id}.method-detail div p", self.class_sub_page)
+        code = self.class.get_elements("div##{id}.method-detail div pre", self.class_sub_page)
         call.concat(details, code)
         # binding.pry
       end
     end
-    def is_there?(user_input)
-      searchable = self.all.map{|el| el.text.downcase}
-      searchable.include?(user_input.downcase)
-    end
-
-    # def text_array(elements_array)
-    #   elements_array.map{|element| element.text}
-    # end
-
   end
-
-  # def get_description(type)
-  #   if
-
-  
 end
 # css(".class")[2].children[1].text
 # puts doc.css("#method-index")[1]
