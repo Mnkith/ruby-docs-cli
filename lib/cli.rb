@@ -7,9 +7,9 @@ require 'pry'
 class CLI
 
   def self.docs
-    input = ""
+    user_input = ""
 
-    while input != "exit"
+    while user_input != "exit"
       puts "Welcome to your Ruby docs!"
       puts "A gem that enables you to display full description of Ruby"
       puts "core classess and methods right from your IDE terminal"
@@ -26,7 +26,7 @@ class CLI
 
       case user_input
       when "classes"
-        puts Klass.all
+        all_classes_menu
       when "list artists"
         list_artists
       when "list genres"
@@ -40,16 +40,46 @@ class CLI
       end
     end
   end
-  def self in_class_loop
+  def self.all_classes_menu
+    user_input = ""
+    puts Klass.all
     until user_input == 'back'
-      puts Klass.all
       puts '********************************************************************'
-      puts 'To see a full description of particular class, enter the class name.'
-      puts 'To go back to the main menu, enter "back".'
+      puts '>>>>To see a full description of particular c'+'lass, enter the c'+'lass name.'
+      puts '>>>>To go back to the previous menu, enter "back".'
+      puts '>>>>>To exit type "exit"'
       user_input = gets.strip
-      case user_input
-      when ""
+      if class_name = Klass.validate(user_input)
+        k = Klass.new(class_name)
+        puts k.description
+        in_class_menu(k)
+      elsif user_input == 'exit'
+      exit(0)
+      end
+    end
 
   end
+
+  def self.in_class_menu(klass)
+    user_input = ""
+    until user_input == 'back'
+      puts '********************************************************************'
+      puts ">>>>>To list all methods under the #{klass.name} c"+"lass, enter mm."
+      puts ">>>>>To see a full description of particular method, enter the method name."
+      puts '>>>>>To go back to the to the previous menu, enter "back".'
+      puts '>>>>>To exit type "exit"'
+      user_input = gets.strip
+      if user_input == 'exit'
+        exit(0)
+      elsif user_input == 'mm'
+        puts klass.class_methods
+      elsif user_input != 'back'
+        puts Mmethod.new(user_input, klass).description
+          
+        
+      end
+    end
+  end
+end
 
 CLI.docs
