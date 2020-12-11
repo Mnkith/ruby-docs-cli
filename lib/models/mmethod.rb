@@ -15,12 +15,10 @@ class Mmethod
   attr_reader :description, :name, :klass_sub_page, :normalized_name 
   def initialize(method_name, klass)
     @@all = klass.class_methods
-    if mn = self.class.validate(method_name)
-      @name = mn
+    if @name = self.class.validate(method_name)
       @normalized_name = self.class.normalize_name(@name)
       @klass_sub_page = klass.sub_page
-      # @sub_page = self.class.normalize_uri(klass_sub_page, @name)
-      @description = self.class.description(self)
+      @description = self.descripe
     else
       puts "no #{method_name} method found"
     end
@@ -28,7 +26,10 @@ class Mmethod
 
   def self.normalize_name(suffix = '')
     suffix1 = suffix.gsub(/[:#]/, '')
-    name =suffix1.gsub(/[*-+=><?~\[\]]/, self.special_chars_map) 
+    name = suffix1.gsub(/[*-+=><?~\[\]]/, self.special_chars_map)
+    if name == suffix1
+      name = name + '-'
+    end
     # binding.pry
     return name
     # Klass.main_uri
@@ -44,7 +45,7 @@ class Mmethod
 end
 
 k = Klass.new("Array")
-m = Mmethod.new('+', k)
+m = Mmethod.new('count', k)
 # puts m.name
 puts m.description
 # puts Mmethod.all

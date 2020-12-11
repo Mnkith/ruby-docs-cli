@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
+# require_relative './models/klass'
 module Scraper 
   module ClassMethods
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
@@ -28,18 +29,7 @@ module Scraper
     #   @@main_uri
     # end
 
-    def description(t)
-      if t.class == Klass
-        get_elements('div#documentation div#description.description', t.sub_page)
-      else
-        n = "#{t.normalized_name}method"
-        call =  get_elements("div##{n}.method-detail span.method-callseq", t.klass_sub_page)
-        details = get_elements("div##{n}.method-detail div p", t.klass_sub_page)
-        code = get_elements("div##{n}.method-detail div pre", t.klass_sub_page)
-        # binding.pry
-        call.concat(details, code)
-      end
-    end
+    
     def display_all(text_array)
       text_array.each_with_index {|el, i| puts "#{i+1}- #{el}"}
     end
@@ -51,7 +41,18 @@ module Scraper
   end
   
   module InstanceMethods
-    
+    def descripe
+      if self.class == Klass
+        self.class.get_elements('div#documentation div#description.description', self.sub_page)
+      else
+        n = "#{self.normalized_name}method"
+        call =  self.class.get_elements("div##{n}.method-detail span.method-callseq", self.klass_sub_page)
+        details = self.class.get_elements("div##{n}.method-detail div p", self.klass_sub_page)
+        code = self.class.get_elements("div##{n}.method-detail div pre", self.klass_sub_page)
+        call.concat(details, code)
+        # binding.pry
+      end
+    end
     def is_there?(user_input)
       searchable = self.all.map{|el| el.text.downcase}
       searchable.include?(user_input.downcase)

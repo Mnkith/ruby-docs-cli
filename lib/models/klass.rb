@@ -13,21 +13,31 @@ class Klass
     if cn = self.class.validate(class_name)
       @name = cn
       @sub_page = self.class.normalize_uri(@name)
-      # binding.pry
       @class_methods = self.class.get_elements(@@all_methods_locator, @sub_page)
-      @description = self.class.description(self)
+      @description = self.descripe
+      # binding.pry
     else
       puts "no #{class_name} class found"
     end
   end
 
-  # def is_there?(element)
-
-  # end
   def methods_count
     class_methods.size
   end
 
+  # def description()
+  #   # binding.pry
+  #   if self.class == Klass
+  #     self.class.get_elements('div#documentation div#description.description', self.sub_page)
+  #   else
+  #     n = "#{self.normalized_name}method"
+  #     call =  self.class.get_elements("div##{n}.method-detail span.method-callseq", self.klass_sub_page)
+  #     details = self.class.get_elements("div##{n}.method-detail div p", self.klass_sub_page)
+  #     code = self.class.get_elements("div##{n}.method-detail div pre", self.klass_sub_page)
+  #     # binding.pry
+  #     call.concat(details, code)
+  #   end
+  # end
   def self.normalize_uri(suffix = '')
     return Klass.main_uri + suffix.gsub(/::/, '/') + '.html' if suffix != ''
     Klass.main_uri
@@ -38,7 +48,7 @@ class Klass
   end
 end
 # k = Klass.new("Array")
-# Klass.all
+# puts Klass.all
 # puts Klass.main_uri
 # puts Klass.suggest('fd')
 # puts k.description
