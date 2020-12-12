@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    colorize (0.8.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
     rake (12.3.3)
@@ -22,6 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  colorize
   rake (~> 12.0)
   tty-box
 

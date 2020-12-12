@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
+require 'colorize'
 # require_relative './models/klass'
 module Scraper 
   module ClassMethods
@@ -34,7 +35,7 @@ module Scraper
     end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
-      puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command."
+      puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
       # nil
     end
   end

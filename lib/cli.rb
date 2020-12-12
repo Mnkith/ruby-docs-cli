@@ -2,6 +2,7 @@ require_relative './models/klass'
 require_relative './models/mmethod'
 require_relative './scraper.rb'
 require "bundler/setup"
+require 'colorize'
 # require 'pry'
 require 'tty/box'
 
@@ -9,17 +10,17 @@ require 'tty/box'
 class CLI
 
   def self.docs
+    puts "Welcome to your Ruby docs!"
+    puts "A gem that enables you to display full description of Ruby " 
+    puts "core classess and methods right from your IDE terminal."
     user_input = ""
-
+    ins_prefix = '>>>>>'.colorize(:green)
     while user_input != "exit"
-      box = TTY::Box.frame(width: 90, height: 5) do
-        "Welcome to your Ruby docs!"
-        "A gem that enables you to display full description of Ruby core classess and methods right from your IDE terminal."      
-      end
-      puts box
-      puts "core classess and methods right from your IDE terminal"
-      puts "To list all of Ruby classes, enter 'classes'."
-      puts "To quit, type 'exit'."
+      puts "Welcome to your Ruby docs!"
+      puts "A gem that enables you to display full description of Ruby "
+      puts "core classess and methods right from your IDE terminal."
+      puts "#{ins_prefix}To list all of Ruby classes, enter #{'classes'.colorize(:yellow)}."
+      puts "#{ins_prefix}To quit, type #{'exit'.colorize(:yellow)}."
       # $stdout << "Hello " << "world!"
       user_input = gets.strip
 
@@ -28,7 +29,7 @@ class CLI
       elsif user_input == "classes"
         all_classes_menu
       else
-        puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command."
+        puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
       end
     end
   end
@@ -37,17 +38,17 @@ class CLI
     puts Klass.all
     until user_input == 'back'
       puts '********************************************************************'
-      puts '>>>>>To see a full description of particular class, enter the c'+'lass name.'
-      puts '>>>>>To go back to the previous menu, enter "back".'
-      puts '>>>>>To exit type "exit"'
+      puts "#{ins_prefix}To see a full description of particular class, enter the class name."
+      puts "#{ins_prefix}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
+      puts "#{ins_prefix}To exit type #{'exit'.colorize(:yellow)}"
       print "ruby.docs.all-classes>>>"
       user_input = gets.strip
-      if class_name = Klass.validate(user_input)
+      if user_input == 'exit'
+      exit(0)
+      elsif class_name = Klass.validate(user_input)
         k = Klass.new(class_name)
         puts k.description
         in_class_menu(k)
-      elsif user_input == 'exit'
-        exit(0)
       end
     end
 
@@ -57,10 +58,10 @@ class CLI
     user_input = ""
     until user_input == 'back'
       puts '********************************************************************'
-      puts ">>>>>To list all methods under the #{klass.name} c"+"lass, enter mm."
-      puts ">>>>>To see a full description of particular method, enter the method name."
-      puts '>>>>>To go back to the to the previous menu, enter "back".'
-      puts '>>>>>To exit type "exit"'
+      puts "#{ins_prefix}To list all methods under the #{klass.name.colorize(:yellow)} c"+"lass, enter #{'methods'.colorize(:yellow)}."
+      puts "#{ins_prefix}To see a full description of particular method, enter the method name."
+      puts "#{ins_prefix}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
+      puts "#{ins_prefix}To exit type 'exit'.colorize(:yellow)}"
       print "ruby.docs.#{klass.name}>>>"
       user_input = gets.strip
       if user_input == 'exit'
