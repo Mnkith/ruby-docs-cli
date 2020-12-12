@@ -4,7 +4,7 @@ require_relative './scraper.rb'
 require "bundler/setup"
 require 'colorize'
 # require 'pry'
-require 'tty/box'
+# require 'tty/box'
 
 
 class CLI
