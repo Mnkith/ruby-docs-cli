@@ -29,7 +29,6 @@ class CLI
     puts Klass.all
     until user_input == 'back'
       puts @@SEPARATOR
-      # puts
       puts "#{@@INS_PREFIX}To see a full description of particular class, enter the class name."
       puts "#{@@INS_PREFIX}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
@@ -70,6 +69,3 @@ class CLI
     end
   end
 end
-# box = TTY::Box.frame "Drawing a box in", "terminal emulator", padding: 3, align: :center
-# print box
-CLI.docs

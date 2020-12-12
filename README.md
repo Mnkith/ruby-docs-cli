@@ -1,8 +1,7 @@
 # RubyDocsCli
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby_docs_cli`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A gem that enables you to display full description of Ruby core classess 
+and methods right from your IDE terminal.
 
 ## Installation
 
@@ -22,7 +21,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In order to start navigating the ruby_docs_cli, require the gem using this line.
+require 'ruby_docs_cli'
+and then run the program using this command
+path/to/your/project&./bin/docs
 
 ## Development
 

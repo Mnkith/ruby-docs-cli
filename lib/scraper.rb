@@ -33,9 +33,9 @@ module Scraper
     
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
-      # suggest(user_input)
+      suggest(user_input)
 
-      puts "Sorry, ruby-docs doesn't recognize '".colorize(:red) + "#{user_input}".colorize(:yellow) + "' as internal command.".colorize(:red)
+      # puts "Sorry, ruby-docs doesn't recognize '".colorize(:red) + "#{user_input}".colorize(:yellow) + "' as internal command.".colorize(:red)
       nil
     end
   end
