@@ -2,6 +2,7 @@ require_relative './models/klass'
 require_relative './models/mmethod'
 require_relative './scraper.rb'
 require 'pry'
+require 'tty/box'
 
 
 class CLI
@@ -10,8 +11,10 @@ class CLI
     user_input = ""
 
     while user_input != "exit"
-      puts "Welcome to your Ruby docs!"
-      puts "   A gem that enables you to display full description of Ruby"
+      box = TTY::Box.frame(width: 30, height: 10) do
+        puts "Welcome to your Ruby docs!"
+        puts "   A gem that enables you to display full description of Ruby"
+      end
       puts "core classess and methods right from your IDE terminal"
       puts "To list all of Ruby classes, enter 'classes'."
       puts "To quit, type 'exit'."
