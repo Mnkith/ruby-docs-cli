@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mnkith"]
   spec.email         = ["munkithabid@gmail.com"]
 
-  spec.summary       = 'A gem that enables you to display full description of Ruby core classess and methods right from your IDE terminal.'
-  # spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = 'An interactive CLI tool to display Ruby classes and methods on the terminal'
+  spec.description   = 'A gem that enables you to display full description of Ruby core classess and methods right from your IDE terminal.'
   # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
@@ -26,4 +26,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_development_dependency 'nokogiri'
+  spec.add_development_dependency 'open-uri'
+  spec.add_development_dependency 'colorize'
 end

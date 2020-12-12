@@ -27,11 +27,6 @@ module Scraper
     #   return @@main_uri + suffix.gsub(/::/, '/') + '.html' if suffix != ''
     #   @@main_uri
     # end
-
-    
-    def display_all(text_array)
-      text_array.each_with_index {|el, i| puts "#{i+1}- #{el}"}
-    end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
       puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
@@ -49,7 +44,6 @@ module Scraper
         details = self.class.get_elements("div##{id}.method-detail div p", self.class_sub_page)
         code = self.class.get_elements("div##{id}.method-detail div pre", self.class_sub_page)
         call.concat(details, code)
-        # binding.pry
       end
     end
   end

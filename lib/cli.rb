@@ -8,7 +8,7 @@ require 'tty/box'
 
 
 class CLI
-  @@INS_PREFIX = '>>>>>'.colorize(:green)
+  @@INS_PREFIX = '>>>'.colorize(:green)
   @@SEPARATOR = "\n********************************************************************\n\n".colorize(:light_blue)
   def self.docs
     puts "Welcome to your Ruby docs!"
@@ -60,7 +60,6 @@ class CLI
     user_input = ""
     until user_input == 'back'
       puts @@SEPARATOR
-      # puts
       puts "#{@@INS_PREFIX}To list all methods under the #{klass.name.colorize(:yellow)} c"+"lass, enter #{'methods'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To see a full description of particular method, enter the method name."
       puts "#{@@INS_PREFIX}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
