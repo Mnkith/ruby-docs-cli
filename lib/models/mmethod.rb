@@ -4,6 +4,7 @@ class Mmethod
   extend Scraper::ClassMethods
   include Scraper::InstanceMethods
   attr_reader :sub_page
+
   @@all = []
   @@SPECIAL_CHAR_MAP = {'[' => '5B-', ']' => '5D-',
                         '&' => '26-', '*' => '2A-',
@@ -14,14 +15,19 @@ class Mmethod
 
   attr_reader :description, :name, :class_sub_page, :normalized_name 
   def initialize(method_name, klass)
-    @@all = klass.class_methods
-    if @name = self.class.validate(method_name)
+    # @@all = klass.class_methods
+    # if @name = self.class.validate(method_name)
+      @name = method_name
       @normalized_name = self.class.normalize_name(@name)
       @class_sub_page = klass.sub_page
       @description = self.descripe
-    else
-      puts "no #{method_name} method found"
-    end
+    # else
+    #   puts "no #{method_name} method found"
+    # end
+  end
+
+  def self.all=(array)
+    @@all = array
   end
 
   def self.normalize_name(suffix)

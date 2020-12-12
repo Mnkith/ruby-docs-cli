@@ -10,13 +10,14 @@ class Klass
   # display_content(@@all_classes)
   attr_reader :class_methods, :name, :description, :sub_page
   def initialize(class_name)
-    if @name = self.class.validate(class_name)
+    if self.class.validate(class_name)
+      @name = self.class.validate(class_name)
       @sub_page = self.class.main_uri + self.class.normalize_name(@name)
       @class_methods = self.class.get_elements(@@all_methods_locator, @sub_page)
       @description = self.descripe
-      # binding.pry
-    else
-      puts "no #{class_name} class found"
+    #   # binding.pry
+    # else
+    #   puts "no #{class_name} class found"
     end
   end
 
@@ -42,3 +43,4 @@ end
 # Klass.display_content(k.class_methods)
 # puts k.methods_count
 # puts Klass.methods
+# p Klass.new('fffff')
