@@ -19,7 +19,7 @@ module Scraper
 
     def suggest(user_input)
       if user_input.length >= 3
-        s = ".*#{user_input.split('').join('.*')}.*"
+        s = ".*#{user_input.split('').join('.*{1}')}.*"
         pattern = Regexp.new(s)
         suggestions = self.all.select{|el| el.downcase =~ pattern}
         if suggestions.empty? 
@@ -31,6 +31,7 @@ module Scraper
         end
       else
          puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+      end
 
     end
     
@@ -40,8 +41,9 @@ module Scraper
     # end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
-      suggest(user_input)
-      # puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+      # suggest(user_input)
+      
+      puts "Sorry, ruby-docs doesn't recognize '".colorize(:red) + "#{user_input}".colorize(:yellow) + "' as internal command.".colorize(:red)
       nil
     end
   end

@@ -9,7 +9,7 @@ require 'colorize'
 
 class CLI
   @@INS_PREFIX = '>>>'.colorize(:green)
-  @@SEPARATOR = "\n********************************************************************\n\n".colorize(:light_blue)
+  @@SEPARATOR = "\n********************************************************************\n".colorize(:light_blue)
   def self.docs
     puts "Welcome to your Ruby docs!"
     puts "A gem that enables you to display full description of Ruby " 
@@ -43,7 +43,7 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts
-      print "ruby.docs.all-classes>>>"
+      # print "ruby.docs.all-classes>>>"
       user_input = gets.strip.downcase
       if user_input == 'exit'
         exit(0)
@@ -65,7 +65,7 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts 
-      print "ruby.docs.#{klass.name}>>>"
+      # print "ruby.docs.#{klass.name}>>>"
       user_input = gets.strip.downcase
       if user_input == 'exit'
           exit(0)

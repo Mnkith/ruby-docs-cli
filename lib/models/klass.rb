@@ -8,11 +8,13 @@ class Klass
   @@all = get_elements(@@ALL_CLASSES_LOCATOR, "https://ruby-doc.org/core-2.7.2/")
 
   attr_reader :class_methods, :name, :description, :sub_page
-
+  
   def initialize(class_name)
       @name = self.class.validate(class_name)
       @sub_page = self.class.main_uri + self.class.normalize_name(@name)
       @class_methods = self.class.get_elements(@@ALL_METHODS_LOCATOR, @sub_page)
+      @description = self.descripe
+    
   end
 
   def methods_count
