@@ -1,12 +1,3 @@
-require_relative './models/klass'
-require_relative './models/mmethod'
-require_relative './scraper.rb'
-require "bundler/setup"
-require 'colorize'
-# require 'pry'
-# require 'tty/box'
-
-
 class CLI
   @@INS_PREFIX = '>>>'.colorize(:green)
   @@SEPARATOR = "\n********************************************************************\n".colorize(:light_blue)
@@ -65,7 +56,6 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts 
-      # print "ruby.docs.#{klass.name}>>>"
       user_input = gets.strip.downcase
       if user_input == 'exit'
           exit(0)

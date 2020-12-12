@@ -1,12 +1,8 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
-require 'colorize'
 module Scraper
   module ClassMethods
-  @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
-  # main_site = open(main_uri)                    # not a constant because it's content will change dynamically
-    
+
+  @@main_uri = "https://ruby-doc.org/core-2.7.2/" 
+
     def get_elements(element_locator, page)
       doc = Nokogiri::HTML(open(page))
       elements = doc.css(element_locator)
@@ -35,14 +31,10 @@ module Scraper
 
     end
     
-    # def normalize_uri(suffix = '')
-    #   return @@main_uri + suffix.gsub(/::/, '/') + '.html' if suffix != ''
-    #   @@main_uri
-    # end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
       # suggest(user_input)
-      
+
       puts "Sorry, ruby-docs doesn't recognize '".colorize(:red) + "#{user_input}".colorize(:yellow) + "' as internal command.".colorize(:red)
       nil
     end
@@ -62,9 +54,3 @@ module Scraper
     end
   end
 end
-# css(".class")[2].children[1].text
-# puts doc.css("#method-index")[1]
-# puts doc.css(".class a").text
-# all_classes_locator = "div#class-index div.entries p a"
-# all_methods_locator = "div#method-list-section ul.link-list li"
-# Scraper.display_content(Scraper.get_elemrnts(all_methods_locator, "Array.html")) 

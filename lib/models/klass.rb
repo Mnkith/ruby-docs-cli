@@ -1,5 +1,4 @@
 require_relative '../scraper.rb'
-# require 'pry'
 class Klass 
   extend Scraper::ClassMethods
   include Scraper::InstanceMethods
@@ -29,14 +28,3 @@ class Klass
     @@all
   end
 end
-# k = Klass.new("Array")
-# puts Klass.all
-# puts Klass.main_uri
-# puts Klass.suggest('fd')
-# puts k.description
-# puts k.class_methods
-# puts k.all_classes
-# Klass.display_content(k.class_methods)
-# puts k.methods_count
-# puts Klass.methods
-# p Klass.new('fffff')
