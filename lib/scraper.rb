@@ -2,8 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require 'colorize'
-# require_relative './models/klass'
-module Scraper 
+module Scraper
   module ClassMethods
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" # not a constant because it's content will change dynamically
   # main_site = open(main_uri)                    # not a constant because it's content will change dynamically
