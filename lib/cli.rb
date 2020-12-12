@@ -11,10 +11,10 @@ class CLI
     user_input = ""
 
     while user_input != "exit"
-      box = TTY::Box.frame(width: 30, height: 10) do
+      # box = TTY::Box.frame(width: 30, height: 10) do
         puts "Welcome to your Ruby docs!"
         puts "   A gem that enables you to display full description of Ruby"
-      end
+      # end
       puts "core classess and methods right from your IDE terminal"
       puts "To list all of Ruby classes, enter 'classes'."
       puts "To quit, type 'exit'."
