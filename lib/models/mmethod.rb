@@ -1,5 +1,7 @@
 require_relative './klass'
 require 'pry'
+require 'colorize'
+
 class Mmethod
   extend Scraper::ClassMethods
   include Scraper::InstanceMethods

@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mnkith"]
   spec.email         = ["munkithabid@gmail.com"]
 
-  spec.summary       = 'Write a short summary, because RubyGems requires one.'
+  spec.summary       = 'A gem that enables you to display full description of Ruby core classess and methods right from your IDE terminal.'
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
   # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
