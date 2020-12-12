@@ -18,9 +18,20 @@ module Scraper
     end
 
     def suggest(user_input)
-      s = ".*#{user_input.split('').join('.*')}.*"
-      pattern = Regexp.new(s)
-      self.all.select{|el| el.text.downcase =~ pattern}
+      if user_input.length >= 3
+        s = ".*#{user_input.split('').join('.*')}.*"
+        pattern = Regexp.new(s)
+        suggestions = self.all.select{|el| el.downcase =~ pattern}
+        if suggestions.empty? 
+          puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+        else
+          puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+          puts "Did you mean?"
+          puts suggestions
+        end
+      else
+         puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+
     end
     
     # def normalize_uri(suffix = '')
@@ -29,7 +40,8 @@ module Scraper
     # end
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
       self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
-      puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+      suggest(user_input)
+      # puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
       nil
     end
   end
