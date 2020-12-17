@@ -1,17 +1,26 @@
 class CLI
   @@INS_PREFIX = '>>>'.colorize(:green)
   @@SEPARATOR = "\n********************************************************************\n".colorize(:light_blue)
+
+  @@main_prompt = "ruby-2.7.2-docs:>) ".colorize(:light_blue)
+  
   def self.docs
     puts "Welcome to your Ruby docs!"
     puts "A gem that enables you to display full description of Ruby " 
     puts "core classess and methods right from your IDE terminal."
     puts
+    
+    
     user_input = ""
     while true
 
       puts "#{@@INS_PREFIX}To list all of Ruby classes, enter #{'classes'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To quit, type #{'exit'.colorize(:yellow)}."
       puts
+
+
+      STDOUT << @@main_prompt
+
       user_input = gets.strip.downcase
 
       if user_input == "exit"
@@ -33,7 +42,7 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts
-      # print "ruby.docs.all-classes>>>"
+      STDOUT << "#{@@main_prompt}/#{'classes'.colorize(:yellow)}:>) "
       user_input = gets.strip.downcase
       if user_input == 'exit'
         exit(0)
@@ -55,15 +64,21 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts 
+
+      STDOUT << "#{@@main_prompt}/classes/#{klass.name.colorize(:yellow)}:>) "
+
       user_input = gets.strip.downcase
+
       if user_input == 'exit'
           exit(0)
       elsif user_input == 'methods'
           puts klass.class_methods
       elsif user_input != 'back'
         Mmethod.all = klass.class_methods
-        if Mmethod.validate(user_input)
-          puts Mmethod.new(user_input, klass).description
+        if method_name = Mmethod.validate(user_input)
+          system "clear" 
+          # STDOUT << "ruby-2.7.2-docs/classes/#{klass.name.colorize(:yellow)}/#{method_name.colorize(:yellow)}:>) "
+          puts Mmethod.new(method_name, klass).description
         end
       end
     end

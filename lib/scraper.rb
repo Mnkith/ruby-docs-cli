@@ -19,9 +19,10 @@ module Scraper
         pattern = Regexp.new(s)
         suggestions = self.all.select{|el| el.downcase =~ pattern}
         if suggestions.empty? 
-          puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+          
+          puts "\nSorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
         else
-          puts "Sorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
+          puts "\nSorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
           puts "Did you mean?"
           puts suggestions
         end
