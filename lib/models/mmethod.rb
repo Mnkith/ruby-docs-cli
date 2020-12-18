@@ -10,7 +10,7 @@ class Mmethod
                         '<' => '3C-', '=' => '3D-',
                         '>' => '3E-', '?' => '3F-',
                         '~' => '7E-', '|' => '7C-'}
-
+  
   attr_reader :description, :name, :class_sub_page, :normalized_name 
   def initialize(method_name, klass)
       @name = method_name

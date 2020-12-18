@@ -2,15 +2,14 @@ class CLI
   @@INS_PREFIX = '>>>'.colorize(:green)
   @@SEPARATOR = "\n********************************************************************\n".colorize(:light_blue)
 
-  @@main_prompt = "ruby-2.7.2-docs:>) ".colorize(:light_blue)
+  @@main_prompt = "ruby-2.7.2-docs".colorize(:light_blue)
   
   def self.docs
     puts "Welcome to your Ruby docs!"
     puts "A gem that enables you to display full description of Ruby " 
     puts "core classess and methods right from your IDE terminal."
     puts
-    
-    
+
     user_input = ""
     while true
 
@@ -19,7 +18,7 @@ class CLI
       puts
 
 
-      STDOUT << @@main_prompt
+      STDOUT << @@main_prompt << ":> "
 
       user_input = gets.strip.downcase
 
@@ -35,14 +34,14 @@ class CLI
   end
   def self.all_classes_menu
     user_input = ""
-    puts Klass.all
+    Klass.all.each{|klass| puts klass.name}
     until user_input == 'back'
       puts @@SEPARATOR
       puts "#{@@INS_PREFIX}To see a full description of particular class, enter the class name."
       puts "#{@@INS_PREFIX}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts
-      STDOUT << "#{@@main_prompt}/#{'classes'.colorize(:yellow)}:>) "
+      STDOUT << "#{@@main_prompt}/#{'classes'.colorize(:yellow)}:> "
       user_input = gets.strip.downcase
       if user_input == 'exit'
         exit(0)
@@ -65,7 +64,7 @@ class CLI
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts 
 
-      STDOUT << "#{@@main_prompt}/classes/#{klass.name.colorize(:yellow)}:>) "
+      STDOUT << "#{@@main_prompt}/classes/#{klass.name.colorize(:yellow)}:> "
 
       user_input = gets.strip.downcase
 

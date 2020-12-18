@@ -1,11 +1,14 @@
+
+require_relative 'environment'
 module Scraper
-  module ClassMethods
+    module ClassMethods
 
   @@main_uri = "https://ruby-doc.org/core-2.7.2/" 
 
     def get_elements(element_locator, page)
       doc = Nokogiri::HTML(open(page))
       elements = doc.css(element_locator)
+      # binding.pry
       elements.map{|element| element.text}
     end
 
@@ -17,7 +20,7 @@ module Scraper
       if user_input.length >= 3
         s = ".*#{user_input.split('').join('.*{1}')}.*"
         pattern = Regexp.new(s)
-        suggestions = self.all.select{|el| el.downcase =~ pattern}
+        suggestions = self.all.name.select{|el| el.downcase =~ pattern}
         if suggestions.empty? 
           
           puts "\nSorry, ruby-docs doesn't recognize '#{user_input}' as internal command.".colorize(:red)
@@ -33,10 +36,8 @@ module Scraper
     end
     
     def validate(user_input) #return the valid name of method or class based on user input if found other wise nil
-      self.all.each{|el| return el if el.downcase.gsub(/[#:]/, '') == user_input.downcase}
+      self.all.each{|el| return el.name if el.name.downcase.gsub(/[#:]/, '') == user_input.downcase}
       suggest(user_input)
-
-      # puts "Sorry, ruby-docs doesn't recognize '".colorize(:red) + "#{user_input}".colorize(:yellow) + "' as internal command.".colorize(:red)
       nil
     end
   end
