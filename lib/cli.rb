@@ -45,8 +45,8 @@ class CLI
       user_input = gets.strip.downcase
       if user_input == 'exit'
         exit(0)
-      elsif user_input != 'back' && class_name = Klass.validate(user_input)
-        k = Klass.new(class_name)
+      elsif user_input != 'back' && k = Klass.validate(user_input)
+        # k = Klass.new(class_name)
         puts k.description
         in_class_menu(k)
       end
@@ -58,7 +58,7 @@ class CLI
     user_input = ""
     until user_input == 'back'
       puts @@SEPARATOR
-      puts "#{@@INS_PREFIX}To list all methods under the #{klass.name.colorize(:yellow)} c"+"lass, enter #{'methods'.colorize(:yellow)}."
+      puts "#{@@INS_PREFIX}To list all methods under the #{klass.name.colorize(:yellow)} class, enter #{'methods'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To see a full description of particular method, enter the method name."
       puts "#{@@INS_PREFIX}To go back to the to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
@@ -71,13 +71,15 @@ class CLI
       if user_input == 'exit'
           exit(0)
       elsif user_input == 'methods'
-          puts klass.class_methods
+          puts klass.class_methods_names 
       elsif user_input != 'back'
-        Mmethod.all = klass.class_methods
-        if method_name = Mmethod.validate(user_input)
-          system "clear" 
+        klass.class_methods.each_with_index do |m, i|
+          Mmethod.all << Mmethod.new(klass.class_methods_names[i], klass)
+        end
+        if method = Mmethod.validate(user_input)
+          # system "clear" 
           # STDOUT << "ruby-2.7.2-docs/classes/#{klass.name.colorize(:yellow)}/#{method_name.colorize(:yellow)}:>) "
-          puts Mmethod.new(method_name, klass).description
+          puts method.description.strip
         end
       end
     end
