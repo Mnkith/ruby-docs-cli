@@ -18,7 +18,7 @@ class CLI
       puts
 
 
-      STDOUT << @@main_prompt << ":> "
+      $stdout << @@main_prompt << ":> "
 
       user_input = gets.strip.downcase
 
@@ -41,12 +41,11 @@ class CLI
       puts "#{@@INS_PREFIX}To go back to the previous menu, enter #{'back'.colorize(:yellow)}."
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts
-      STDOUT << "#{@@main_prompt}/#{'classes'.colorize(:yellow)}:> "
+      $stdout << "#{@@main_prompt}/#{'classes'.colorize(:yellow)}:> "
       user_input = gets.strip.downcase
       if user_input == 'exit'
         exit(0)
       elsif user_input != 'back' && k = Klass.validate(user_input)
-        # k = Klass.new(class_name)
         puts k.description
         in_class_menu(k)
       end
@@ -56,6 +55,9 @@ class CLI
 
   def self.in_class_menu(klass)
     user_input = ""
+    klass.class_methods.each_with_index do |m, i|
+      Mmethod.new(klass.class_methods_names[i], klass)
+    end
     until user_input == 'back'
       puts @@SEPARATOR
       puts "#{@@INS_PREFIX}To list all methods under the #{klass.name.colorize(:yellow)} class, enter #{'methods'.colorize(:yellow)}."
@@ -64,21 +66,16 @@ class CLI
       puts "#{@@INS_PREFIX}To exit type #{'exit'.colorize(:yellow)}"
       puts 
 
-      STDOUT << "#{@@main_prompt}/classes/#{klass.name.colorize(:yellow)}:> "
+      $stdout << "#{@@main_prompt}/classes/#{klass.name.colorize(:yellow)}:> "
 
       user_input = gets.strip.downcase
 
       if user_input == 'exit'
           exit(0)
       elsif user_input == 'methods'
-          puts klass.class_methods_names 
+          puts klass.class_methods_names
       elsif user_input != 'back'
-        klass.class_methods.each_with_index do |m, i|
-          Mmethod.all << Mmethod.new(klass.class_methods_names[i], klass)
-        end
         if method = Mmethod.validate(user_input)
-          # system "clear" 
-          # STDOUT << "ruby-2.7.2-docs/classes/#{klass.name.colorize(:yellow)}/#{method_name.colorize(:yellow)}:>) "
           puts method.description.strip
         end
       end
