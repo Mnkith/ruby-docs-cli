@@ -1,12 +1,12 @@
 class CLI
+
   @@INS_PREFIX = '>>>'.colorize(:green)
   @@SEPARATOR = "\n********************************************************************\n".colorize(:light_blue)
-
   @@main_prompt = "ruby-2.7.2-docs".colorize(:light_blue)
-  
+
   def self.docs
     puts "Welcome to your Ruby docs!"
-    puts "A gem that enables you to display full description of Ruby " 
+    puts "A gem that enables you to display full description of Ruby"
     puts "core classess and methods right from your IDE terminal."
     puts
 

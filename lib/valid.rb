@@ -1,5 +1,3 @@
-
-
 module Valid
   def suggest(user_input)
     if user_input.length >= 3
